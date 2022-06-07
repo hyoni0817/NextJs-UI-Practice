@@ -1,1 +1,4 @@
 node_modules
+
+#next 빌드 폴더
+.next
