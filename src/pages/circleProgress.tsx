@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Progress } from 'antd';
 
@@ -22,16 +22,26 @@ const ProgressTextBox = styled.div`
   text-align: center;
 `;
 
-const CircleProgress = () => (
-  <ProgressBox>
-    <Progress type="circle" percent={75} strokeWidth={5} width={182} format={() => ``} strokeLinecap="butt" />
-    <ProgressTextBox>
-      <div>
-        <p>진행률</p>
-        <p>75%</p>
-      </div>
-    </ProgressTextBox>
-  </ProgressBox>
-);
+const CircleProgress = () => {
+  const [percent, setPercent] = useState<number>(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setPercent(30);
+    }, 700);
+  }, []);
+
+  return (
+    <ProgressBox>
+      <Progress type="circle" percent={percent} strokeWidth={5} width={182} format={() => ``} strokeLinecap="butt" />
+      <ProgressTextBox>
+        <div>
+          <p>진행률</p>
+          <p>{percent}%</p>
+        </div>
+      </ProgressTextBox>
+    </ProgressBox>
+  );
+};
 
 export default CircleProgress;
