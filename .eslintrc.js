@@ -19,6 +19,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'no-unused-vars': 1,
     'import/extensions': ['error', 'never', { svg: 'always' }],
+    'import/no-unresolved': 0,
   },
   settings: {
     react: {
