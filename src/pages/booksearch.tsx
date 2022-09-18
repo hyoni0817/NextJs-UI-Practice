@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import SearchInput from '../components/book/SearchInput';
 import SearchAutoCompleteList from '../components/book/SearchAutoCompleteList';
 
@@ -24,10 +25,31 @@ const SearchBox = styled.div`
 
 const BookSearch = () => {
   const [value, setValue] = useState<string>('');
+  const [timer, setTimer] = useState<any>(0);
+  const [bookList, setBookList] = useState<[]>([]);
 
   const handleChangeValue = (e) => {
-    setValue(e.target.value);
-    console.log(e.target.value);
+    const currentValue = e.target.value;
+    setValue(currentValue);
+
+    if (timer) {
+      clearTimeout(timer as number);
+    }
+
+    const newTimer = setTimeout(async () => {
+      try {
+        const res = await axios.get(`http://localhost:5555/search/book?keyword=${currentValue}`, {
+          headers: {
+            withCredentials: true,
+          },
+        });
+        setBookList(res.data.item);
+      } catch (error) {
+        console.error(error);
+      }
+    }, 2000);
+
+    setTimer(newTimer);
   };
 
   return (
