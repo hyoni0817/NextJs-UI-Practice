@@ -9,7 +9,7 @@ const ResultListBox = styled.div`
 `;
 
 const ResultList = styled.ul`
-  height: 200px;
+  height: ${(props) => (props.isData ? '200px' : 'auto')};
   margin: 8px 0;
   overflow-y: auto;
   list-style: none;
@@ -40,6 +40,10 @@ const TitleParagraph = styled.p`
   color: #000;
 `;
 
+const NoItem = styled.li`
+  text-align: center;
+`;
+
 type SearchAutoCompleteLisProps = {
   data: {
     title: string;
@@ -59,7 +63,7 @@ const SearchAutoCompleteList: FC<SearchAutoCompleteLisProps> = (props) => {
 
   return (
     <ResultListBox className="book-result">
-      <ResultList>
+      <ResultList isData={data?.length}>
         {data?.length ? (
           data.map((item) => (
             <Item>
@@ -72,7 +76,7 @@ const SearchAutoCompleteList: FC<SearchAutoCompleteLisProps> = (props) => {
             </Item>
           ))
         ) : (
-          <li> 검색결과가 없습니다.</li>
+          <NoItem>검색결과가 없습니다.</NoItem>
         )}
       </ResultList>
     </ResultListBox>
