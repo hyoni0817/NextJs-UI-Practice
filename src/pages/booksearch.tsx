@@ -43,7 +43,7 @@ const BookSearch = () => {
             withCredentials: true,
           },
         });
-        setBookList(res.data.item);
+        setBookList(res.data.items);
       } catch (error) {
         console.error(error);
       }
