@@ -38,12 +38,16 @@ const BookSearch = () => {
 
     const newTimer = setTimeout(async () => {
       try {
-        const res = await axios.get(`http://localhost:5555/search/book?keyword=${currentValue}`, {
-          headers: {
-            withCredentials: true,
-          },
-        });
-        setBookList(res.data.items);
+        if (!e.target.value.length) {
+          setBookList([]);
+        } else {
+          const res = await axios.get(`http://localhost:5555/search/book?keyword=${currentValue}`, {
+            headers: {
+              withCredentials: true,
+            },
+          });
+          setBookList(res.data.items);
+        }
       } catch (error) {
         console.error(error);
       }
