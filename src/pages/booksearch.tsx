@@ -57,7 +57,7 @@ const BookSearch = () => {
       <TitleH1>📚Book Search</TitleH1>
       <SearchBox>
         <SearchInput onChange={handleChangeValue} value={value} />
-        <SearchAutoCompleteList />
+        <SearchAutoCompleteList data={bookList} />
       </SearchBox>
     </Container>
   );
