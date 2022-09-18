@@ -70,7 +70,9 @@ const SearchAutoCompleteList: FC<SearchAutoCompleteLisProps> = (props) => {
               <a href={item.link}>
                 <FlexBox>
                   <BookImg src={item.image} alt={item.title} />
-                  <TitleParagraph>{item.title}</TitleParagraph>
+                  <TitleParagraph>
+                    {item.title}({item.pubdate.slice(0, 4)})
+                  </TitleParagraph>
                 </FlexBox>
               </a>
             </Item>
