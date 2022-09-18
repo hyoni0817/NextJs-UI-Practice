@@ -9,10 +9,35 @@ const ResultListBox = styled.div`
 `;
 
 const ResultList = styled.ul`
+  height: 200px;
   margin: 8px 0;
+  overflow-y: auto;
   list-style: none;
-  padding: 8px 16px;
+  padding: 8px 0;
   border: 1px solid #ccc;
+`;
+
+const Item = styled.li`
+  padding: 8px 16px;
+
+  &:hover {
+    background: #f6f6f6;
+  }
+`;
+
+const FlexBox = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+const BookImg = styled.img`
+  width: 40px;
+  height: auto;
+`;
+
+const TitleParagraph = styled.p`
+  margin: 0;
+  align-self: center;
+  color: #000;
 `;
 
 type SearchAutoCompleteLisProps = {
@@ -37,9 +62,14 @@ const SearchAutoCompleteList: FC<SearchAutoCompleteLisProps> = (props) => {
       <ResultList>
         {data?.length ? (
           data.map((item) => (
-            <li>
-              <a href={item.link}>{item.title}</a>
-            </li>
+            <Item>
+              <a href={item.link}>
+                <FlexBox>
+                  <BookImg src={item.image} alt={item.title} />
+                  <TitleParagraph>{item.title}</TitleParagraph>
+                </FlexBox>
+              </a>
+            </Item>
           ))
         ) : (
           <li> 검색결과가 없습니다.</li>
