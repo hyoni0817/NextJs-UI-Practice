@@ -66,7 +66,7 @@ const SearchAutoCompleteList: FC<SearchAutoCompleteLisProps> = (props) => {
       <ResultList isData={data?.length}>
         {data?.length ? (
           data.map((item) => (
-            <Item>
+            <Item key={item.isbn}>
               <a href={item.link}>
                 <FlexBox>
                   <BookImg src={item.image} alt={item.title} />
