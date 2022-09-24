@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useRouter } from 'next/router';
 import useScript from '../hooks/useScript';
 import ReactHelmet from '../components/share/ReactHelmet';
 import facebookLogo from '../public/img/snsLogo/facebook.png';
@@ -46,7 +48,17 @@ const Img = styled.img`
   border-radius: 50%;
 `;
 
+const UrlCopyButton = styled.button`
+  width: auto;
+  height: 48px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 48px;
+`;
+
 const SnsShare = () => {
+  const router = useRouter();
+  const currentUrl = `http://localhost:3000${router.asPath}`;
   const kakaoScript = useScript('https://developers.kakao.com/sdk/js/kakao.js');
 
   // kakao sdk 초기화하기
@@ -90,6 +102,8 @@ const SnsShare = () => {
     window.open(`http://www.facebook.com/sharer/sharer.php?u=${sendUrl}`);
   };
 
+  const handleClickUrlCopy = () => {};
+
   return (
     <>
       <ReactHelmet title="SNS 공유하기" description="SNS 공유 버튼 구현 연습 페이지 입니다." siteName="UI TEST" />
@@ -107,6 +121,11 @@ const SnsShare = () => {
         <SnsShareButton type="button" snsType="facebook" onClick={handleClickFacebook}>
           <Image src={facebookLogo} alt="facebook" width={48} height={48} />
         </SnsShareButton>
+        <CopyToClipboard text={currentUrl} onCopy={() => alert('링크가 복사되었습니다.')}>
+          <UrlCopyButton type="button" onClick={handleClickUrlCopy}>
+            링크 복사
+          </UrlCopyButton>
+        </CopyToClipboard>
       </FlexBox>
     </>
   );
