@@ -13,13 +13,10 @@ const FlexBox = styled.div`
   gap: 16px;
 `;
 
-const KakaoButton = styled.button`
-  line-height: 1;
-  border: none;
-  background: none;
-`;
-
 const SnsShareButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -30,10 +27,19 @@ const SnsShareButton = styled.button`
         return '#1d9bf0';
       case 'facebook':
         return '#3865ad';
+      case 'kakao':
+        return '#fae100';
       default:
         return '#1d9bf0';
     }
   }};
+`;
+
+const Img = styled.img`
+  object-fit: cover;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
 `;
 
 const SnsShare = () => {
@@ -85,12 +91,12 @@ const SnsShare = () => {
       <ReactHelmet title="SNS 공유하기" description="SNS 공유 버튼 구현 연습 페이지 입니다." siteName="UI TEST" />
       <Title>SNS 공유하기</Title>
       <FlexBox>
-        <KakaoButton type="button" onClick={handleClickKakaoShare}>
-          <img
+        <SnsShareButton type="button" snsType="kakao" onClick={handleClickKakaoShare}>
+          <Img
             src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
             alt="카카오톡 공유 보내기 버튼"
           />
-        </KakaoButton>
+        </SnsShareButton>
         <SnsShareButton type="button" snsType="twitter" onClick={handleClickTwitterShare}>
           트위터
         </SnsShareButton>
