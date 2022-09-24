@@ -18,6 +18,14 @@ const KakaoButton = styled.button`
   background: none;
 `;
 
+const TwitterButton = styled.button`
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #1d9bf0;
+`;
+
 const SnsShare = () => {
   const kakaoScript = useScript('https://developers.kakao.com/sdk/js/kakao.js');
 
@@ -51,6 +59,12 @@ const SnsShare = () => {
     });
   };
 
+  const handleClickTwitterShare = () => {
+    const sendText = 'SNS 공유하기'; // 전달할 텍스트
+    const sendUrl = 'http:localhost:3000/snsshare'; // 전달할 URL
+    window.open(`https://twitter.com/intent/tweet?text=${sendText}&url=${sendUrl}`);
+  };
+
   return (
     <>
       <Head>
@@ -64,6 +78,9 @@ const SnsShare = () => {
             alt="카카오톡 공유 보내기 버튼"
           />
         </KakaoButton>
+        <TwitterButton type="button" onClick={handleClickTwitterShare}>
+          트위터
+        </TwitterButton>
       </FlexBox>
     </>
   );
