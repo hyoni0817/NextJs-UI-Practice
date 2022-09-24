@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import Image from 'next/image';
 import useScript from '../hooks/useScript';
 import ReactHelmet from '../components/share/ReactHelmet';
+import facebookLogo from '../public/img/snsLogo/facebook.png';
 
 const Title = styled.h1`
   text-align: center;
@@ -14,6 +16,7 @@ const FlexBox = styled.div`
 `;
 
 const SnsShareButton = styled.button`
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +29,7 @@ const SnsShareButton = styled.button`
       case 'twitter':
         return '#1d9bf0';
       case 'facebook':
-        return '#3865ad';
+        return '#1878f2';
       case 'kakao':
         return '#fae100';
       default:
@@ -101,7 +104,7 @@ const SnsShare = () => {
           트위터
         </SnsShareButton>
         <SnsShareButton type="button" snsType="facebook" onClick={handleClickFacebook}>
-          페이스북
+          <Image src={facebookLogo} alt="facebook" width={48} height={48} />
         </SnsShareButton>
       </FlexBox>
     </>
