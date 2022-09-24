@@ -10,6 +10,7 @@ const Title = styled.h1`
 const FlexBox = styled.div`
   display: flex;
   justify-content: center;
+  gap: 16px;
 `;
 
 const KakaoButton = styled.button`
