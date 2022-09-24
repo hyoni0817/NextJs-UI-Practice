@@ -4,6 +4,7 @@ import Image from 'next/image';
 import useScript from '../hooks/useScript';
 import ReactHelmet from '../components/share/ReactHelmet';
 import facebookLogo from '../public/img/snsLogo/facebook.png';
+import TwitterLogo from '../public/img/snsLogo/twitter.svg';
 
 const Title = styled.h1`
   text-align: center;
@@ -101,7 +102,7 @@ const SnsShare = () => {
           />
         </SnsShareButton>
         <SnsShareButton type="button" snsType="twitter" onClick={handleClickTwitterShare}>
-          트위터
+          <TwitterLogo />
         </SnsShareButton>
         <SnsShareButton type="button" snsType="facebook" onClick={handleClickFacebook}>
           <Image src={facebookLogo} alt="facebook" width={48} height={48} />
