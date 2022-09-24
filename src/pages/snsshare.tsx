@@ -18,12 +18,21 @@ const KakaoButton = styled.button`
   background: none;
 `;
 
-const TwitterButton = styled.button`
+const SnsShareButton = styled.button`
   width: 48px;
   height: 48px;
   border-radius: 50%;
   border: none;
-  background: #1d9bf0;
+  background: ${(props) => {
+    switch (props.snsType) {
+      case 'twitter':
+        return '#1d9bf0';
+      case 'facebook':
+        return '#3865ad';
+      default:
+        return '#1d9bf0';
+    }
+  }};
 `;
 
 const SnsShare = () => {
@@ -65,6 +74,11 @@ const SnsShare = () => {
     window.open(`https://twitter.com/intent/tweet?text=${sendText}&url=${sendUrl}`);
   };
 
+  const handleClickFacebook = () => {
+    const sendUrl = 'http://localhost:3000/snsshare'; // 전달할 URL
+    window.open(`http://www.facebook.com/sharer/sharer.php?u=${sendUrl}`);
+  };
+
   return (
     <>
       <ReactHelmet title="SNS 공유하기" description="SNS 공유 버튼 구현 연습 페이지 입니다." siteName="UI TEST" />
@@ -76,9 +90,12 @@ const SnsShare = () => {
             alt="카카오톡 공유 보내기 버튼"
           />
         </KakaoButton>
-        <TwitterButton type="button" onClick={handleClickTwitterShare}>
+        <SnsShareButton type="button" snsType="twitter" onClick={handleClickTwitterShare}>
           트위터
-        </TwitterButton>
+        </SnsShareButton>
+        <SnsShareButton type="button" snsType="facebook" onClick={handleClickFacebook}>
+          페이스북
+        </SnsShareButton>
       </FlexBox>
     </>
   );
