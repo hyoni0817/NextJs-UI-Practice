@@ -1,7 +1,7 @@
-import Head from 'next/head';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useScript from '../hooks/useScript';
+import ReactHelmet from '../components/share/ReactHelmet';
 
 const Title = styled.h1`
   text-align: center;
@@ -61,15 +61,13 @@ const SnsShare = () => {
 
   const handleClickTwitterShare = () => {
     const sendText = 'SNS 공유하기'; // 전달할 텍스트
-    const sendUrl = 'http:localhost:3000/snsshare'; // 전달할 URL
+    const sendUrl = 'http://localhost:3000/snsshare'; // 전달할 URL
     window.open(`https://twitter.com/intent/tweet?text=${sendText}&url=${sendUrl}`);
   };
 
   return (
     <>
-      <Head>
-        <title>SNS 공유하기</title>
-      </Head>
+      <ReactHelmet title="SNS 공유하기" description="SNS 공유 버튼 구현 연습 페이지 입니다." siteName="UI TEST" />
       <Title>SNS 공유하기</Title>
       <FlexBox>
         <KakaoButton type="button" onClick={handleClickKakaoShare}>
