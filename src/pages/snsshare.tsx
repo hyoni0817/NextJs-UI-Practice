@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+import { Modal } from 'antd';
 import useScript from '../hooks/useScript';
 import ReactHelmet from '../components/share/ReactHelmet';
 import facebookLogo from '../public/img/snsLogo/facebook.png';
@@ -56,8 +58,22 @@ const UrlCopyButton = styled.button`
   border-radius: 48px;
 `;
 
-const SnsShare = () => {
+const ShareButton = styled.button`
+  padding: 16px;
+  border: none;
+  border-radius: 50%;
+  background: #ff6633;
+  color: #ffffff;
+`;
+
+type SnsShareProps = {
+  isMobile: boolean;
+};
+
+const SnsShare: FC<SnsShareProps> = (props) => {
   const router = useRouter();
+  const { isMobile } = props;
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const currentUrl = `http://localhost:3000${router.asPath}`;
   const kakaoScript = useScript('https://developers.kakao.com/sdk/js/kakao.js');
 
@@ -102,33 +118,80 @@ const SnsShare = () => {
     window.open(`http://www.facebook.com/sharer/sharer.php?u=${sendUrl}`);
   };
 
-  const handleClickUrlCopy = () => {};
+  const handleClickShare = () => {
+    const { title } = document;
+
+    if (isMobile) {
+      // 모바일인 경우에만 Web Share API 실행
+      if (navigator.share) {
+        navigator
+          .share({
+            title,
+            url: currentUrl,
+          })
+          .then(() => {
+            console.log('Thanks for sharing!');
+          })
+          .catch(console.error);
+      } else {
+        // fallback
+        setIsShareModalOpen(true);
+      }
+    } else {
+      setIsShareModalOpen(true);
+    }
+  };
+
+  const handleShareModalCancel = () => {
+    setIsShareModalOpen(false);
+  };
 
   return (
     <>
       <ReactHelmet title="SNS 공유하기" description="SNS 공유 버튼 구현 연습 페이지 입니다." siteName="UI TEST" />
       <Title>SNS 공유하기</Title>
       <FlexBox>
-        <SnsShareButton type="button" snsType="kakao" onClick={handleClickKakaoShare}>
-          <Img
-            src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-            alt="카카오톡 공유 보내기 버튼"
-          />
-        </SnsShareButton>
-        <SnsShareButton type="button" snsType="twitter" onClick={handleClickTwitterShare}>
-          <TwitterLogo />
-        </SnsShareButton>
-        <SnsShareButton type="button" snsType="facebook" onClick={handleClickFacebook}>
-          <Image src={facebookLogo} alt="facebook" width={48} height={48} />
-        </SnsShareButton>
-        <CopyToClipboard text={currentUrl} onCopy={() => alert('링크가 복사되었습니다.')}>
-          <UrlCopyButton type="button" onClick={handleClickUrlCopy}>
-            링크 복사
-          </UrlCopyButton>
-        </CopyToClipboard>
+        <ShareButton type="button" onClick={handleClickShare}>
+          공유
+        </ShareButton>
       </FlexBox>
+      <Modal title="공유하기" open={isShareModalOpen} onCancel={handleShareModalCancel} footer={null}>
+        <FlexBox>
+          <SnsShareButton type="button" snsType="kakao" onClick={handleClickKakaoShare}>
+            <Img
+              src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+              alt="카카오톡 공유 보내기 버튼"
+            />
+          </SnsShareButton>
+          <SnsShareButton type="button" snsType="twitter" onClick={handleClickTwitterShare}>
+            <TwitterLogo />
+          </SnsShareButton>
+          <SnsShareButton type="button" snsType="facebook" onClick={handleClickFacebook}>
+            <Image src={facebookLogo} alt="facebook" width={48} height={48} />
+          </SnsShareButton>
+          <CopyToClipboard text={currentUrl} onCopy={() => alert('링크가 복사되었습니다.')}>
+            <UrlCopyButton type="button">링크 복사</UrlCopyButton>
+          </CopyToClipboard>
+        </FlexBox>
+      </Modal>
     </>
   );
 };
 
 export default SnsShare;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { req } = context;
+
+  // 모바일 기기 접속 여부 체크
+  const detectMobileDevice = (agent) => {
+    const mobileRegex = [/Android/i, /iPhone/i, /iPad/i, /iPod/i, /BlackBerry/i, /Windows Phone/i];
+    return mobileRegex.some((mobile) => agent.match(mobile));
+  };
+
+  const isMobile = detectMobileDevice(req.headers['user-agent']);
+
+  return {
+    props: { isMobile },
+  };
+};
