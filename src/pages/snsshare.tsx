@@ -5,7 +5,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { Modal } from 'antd';
-import { FacebookShareButton, FacebookIcon } from 'react-share';
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon } from 'react-share';
 import useScript from '../hooks/useScript';
 import ReactHelmet from '../components/share/ReactHelmet';
 import facebookLogo from '../public/img/snsLogo/facebook.png';
@@ -75,6 +75,7 @@ const SnsShare: FC<SnsShareProps> = (props) => {
   const router = useRouter();
   const { isMobile } = props;
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const title = 'SNS 공유하기';
   const currentUrl = `${process.env.NEXT_PUBLIC_HOST}${router.asPath}`;
   const kakaoScript = useScript('https://developers.kakao.com/sdk/js/kakao.js');
 
@@ -115,8 +116,6 @@ const SnsShare: FC<SnsShareProps> = (props) => {
   };
 
   const handleClickShare = () => {
-    const { title } = document;
-
     if (isMobile) {
       // 모바일인 경우에만 Web Share API 실행
       if (navigator.share) {
@@ -159,9 +158,9 @@ const SnsShare: FC<SnsShareProps> = (props) => {
               alt="카카오톡 공유 보내기 버튼"
             />
           </SnsShareButton>
-          <SnsShareButton type="button" snsType="twitter" onClick={handleClickTwitterShare}>
-            <TwitterLogo />
-          </SnsShareButton>
+          <TwitterShareButton url={currentUrl} title={title}>
+            <TwitterIcon size={48} round borderRadius={24} />
+          </TwitterShareButton>
           <FacebookShareButton url={currentUrl}>
             <FacebookIcon size={48} round borderRadius={24} />
           </FacebookShareButton>
