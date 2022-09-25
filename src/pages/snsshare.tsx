@@ -47,6 +47,7 @@ const UrlCopyButton = styled.button`
   padding: 0 16px;
   border: none;
   border-radius: 48px;
+  cursor: pointer;
 `;
 
 const ShareButton = styled.button`
@@ -55,6 +56,7 @@ const ShareButton = styled.button`
   border-radius: 50%;
   background: #ff6633;
   color: #ffffff;
+  cursor: pointer;
 `;
 
 type SnsShareProps = {
