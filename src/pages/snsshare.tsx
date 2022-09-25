@@ -21,7 +21,7 @@ const FlexBox = styled.div`
   gap: 16px;
 `;
 
-const SnsShareButton = styled.button`
+const KakaoShareButton = styled.button`
   padding: 0;
   display: flex;
   justify-content: center;
@@ -30,18 +30,8 @@ const SnsShareButton = styled.button`
   height: 48px;
   border-radius: 50%;
   border: none;
-  background: ${(props) => {
-    switch (props.snsType) {
-      case 'twitter':
-        return '#1d9bf0';
-      case 'facebook':
-        return '#1878f2';
-      case 'kakao':
-        return '#fae100';
-      default:
-        return '#1d9bf0';
-    }
-  }};
+  background: #fae100;
+  cursor: pointer;
 `;
 
 const Img = styled.img`
@@ -152,12 +142,12 @@ const SnsShare: FC<SnsShareProps> = (props) => {
       </FlexBox>
       <Modal title="공유하기" open={isShareModalOpen} onCancel={handleShareModalCancel} footer={null}>
         <FlexBox>
-          <SnsShareButton type="button" snsType="kakao" onClick={handleClickKakaoShare}>
+          <KakaoShareButton type="button" snsType="kakao" onClick={handleClickKakaoShare}>
             <Img
               src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
               alt="카카오톡 공유 보내기 버튼"
             />
-          </SnsShareButton>
+          </KakaoShareButton>
           <TwitterShareButton url={currentUrl} title={title}>
             <TwitterIcon size={48} round borderRadius={24} />
           </TwitterShareButton>
