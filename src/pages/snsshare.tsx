@@ -5,6 +5,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { Modal } from 'antd';
+import { FacebookShareButton, FacebookIcon } from 'react-share';
 import useScript from '../hooks/useScript';
 import ReactHelmet from '../components/share/ReactHelmet';
 import facebookLogo from '../public/img/snsLogo/facebook.png';
@@ -74,7 +75,7 @@ const SnsShare: FC<SnsShareProps> = (props) => {
   const router = useRouter();
   const { isMobile } = props;
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
-  const currentUrl = `http://localhost:3000${router.asPath}`;
+  const currentUrl = `${process.env.NEXT_PUBLIC_HOST}${router.asPath}`;
   const kakaoScript = useScript('https://developers.kakao.com/sdk/js/kakao.js');
 
   // kakao sdk 초기화하기
@@ -91,7 +92,7 @@ const SnsShare: FC<SnsShareProps> = (props) => {
 
   const handleClickKakaoShare = () => {
     (window as any).Kakao.Link.sendScrap({
-      requestUrl: 'http://localhost:3000/snsshare',
+      requestUrl: `${process.env.NEXT_PUBLIC_HOST}/snsshare`,
       templateId: Number(process.env.NEXT_PUBLIC_KAKAO_TEMPLATE_ID),
       templateArgs: {
         currentUrl: '/snsshare',
@@ -109,13 +110,8 @@ const SnsShare: FC<SnsShareProps> = (props) => {
 
   const handleClickTwitterShare = () => {
     const sendText = 'SNS 공유하기'; // 전달할 텍스트
-    const sendUrl = 'http://localhost:3000/snsshare'; // 전달할 URL
+    const sendUrl = `${process.env.NEXT_PUBLIC_HOST}/snsshare`; // 전달할 URL
     window.open(`https://twitter.com/intent/tweet?text=${sendText}&url=${sendUrl}`);
-  };
-
-  const handleClickFacebook = () => {
-    const sendUrl = 'http://localhost:3000/snsshare'; // 전달할 URL
-    window.open(`http://www.facebook.com/sharer/sharer.php?u=${sendUrl}`);
   };
 
   const handleClickShare = () => {
@@ -166,9 +162,9 @@ const SnsShare: FC<SnsShareProps> = (props) => {
           <SnsShareButton type="button" snsType="twitter" onClick={handleClickTwitterShare}>
             <TwitterLogo />
           </SnsShareButton>
-          <SnsShareButton type="button" snsType="facebook" onClick={handleClickFacebook}>
-            <Image src={facebookLogo} alt="facebook" width={48} height={48} />
-          </SnsShareButton>
+          <FacebookShareButton url={currentUrl}>
+            <FacebookIcon size={48} round borderRadius={24} />
+          </FacebookShareButton>
           <CopyToClipboard text={currentUrl} onCopy={() => alert('링크가 복사되었습니다.')}>
             <UrlCopyButton type="button">링크 복사</UrlCopyButton>
           </CopyToClipboard>
