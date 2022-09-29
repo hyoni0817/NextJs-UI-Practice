@@ -1,5 +1,12 @@
 // IntersectionObserver로 무한 스크롤링 구현하기
 import React, { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components';
+
+const TitleH1 = styled.h1`
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 700;
+`;
 
 type BookListType = {
   author: string;
@@ -68,7 +75,7 @@ const infiniteScroll = () => {
 
   return (
     <div>
-      <h1>사랑과 관련된 모든 책 모음</h1>
+      <TitleH1>❤️사랑과 관련된 모든 책 모음❤️</TitleH1>
       {React.Children.toArray(
         bookList.map((item, idx) =>
           idx === bookList.length - 1 && !isLoading && pageNum <= totalPageNum ? (
