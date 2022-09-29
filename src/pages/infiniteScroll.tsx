@@ -1,5 +1,6 @@
 // IntersectionObserver로 무한 스크롤링 구현하기
 import React, { useEffect, useState, useRef } from 'react';
+import Highlighter from 'react-highlight-words';
 import styled from 'styled-components';
 
 const TitleH1 = styled.h1`
@@ -80,11 +81,25 @@ const infiniteScroll = () => {
         bookList.map((item, idx) =>
           idx === bookList.length - 1 && !isLoading && pageNum <= totalPageNum ? (
             <div ref={setLastElement}>
-              <h2>{item.title}</h2>
+              <h2>
+                <Highlighter
+                  highlightClassName="keyword-highlight"
+                  searchWords={['사랑']}
+                  autoEscape
+                  textToHighlight={item.title}
+                />
+              </h2>
             </div>
           ) : (
             <div>
-              <h2>{item.title}</h2>
+              <h2>
+                <Highlighter
+                  highlightClassName="keyword-highlight"
+                  searchWords={['사랑']}
+                  autoEscape
+                  textToHighlight={item.title}
+                />
+              </h2>
             </div>
           )
         )
