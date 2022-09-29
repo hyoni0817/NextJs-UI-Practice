@@ -24,6 +24,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.1.0",
     "react-helmet": "^6.1.0",
+    "react-highlight-words": "^0.18.0",
     "react-share": "^4.4.0",
     "styled-components": "^5.3.5"
   },
