@@ -9,6 +9,14 @@ const TitleH1 = styled.h1`
   font-weight: 700;
 `;
 
+const BookListBox = styled.div`
+  width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
 type BookListType = {
   author: string;
   description: string;
@@ -77,34 +85,38 @@ const infiniteScroll = () => {
   return (
     <div>
       <TitleH1>❤️사랑과 관련된 모든 책 모음❤️</TitleH1>
-      {React.Children.toArray(
-        bookList.map((item, idx) =>
-          idx === bookList.length - 1 && !isLoading && pageNum <= totalPageNum ? (
-            <div ref={setLastElement}>
-              <h2>
-                <Highlighter
-                  highlightClassName="keyword-highlight"
-                  searchWords={['사랑']}
-                  autoEscape
-                  textToHighlight={item.title}
-                />
-              </h2>
-            </div>
-          ) : (
-            <div>
-              <h2>
-                <Highlighter
-                  highlightClassName="keyword-highlight"
-                  searchWords={['사랑']}
-                  autoEscape
-                  textToHighlight={item.title}
-                />
-              </h2>
-            </div>
-          )
-        )
-      )}
-      {isLoading ? <p>로딩 중...</p> : ''}
+      <BookListBox>
+        <div>
+          {React.Children.toArray(
+            bookList.map((item, idx) =>
+              idx === bookList.length - 1 && !isLoading && pageNum <= totalPageNum ? (
+                <div ref={setLastElement}>
+                  <h2>
+                    <Highlighter
+                      highlightClassName="keyword-highlight"
+                      searchWords={['사랑']}
+                      autoEscape
+                      textToHighlight={item.title}
+                    />
+                  </h2>
+                </div>
+              ) : (
+                <div>
+                  <h2>
+                    <Highlighter
+                      highlightClassName="keyword-highlight"
+                      searchWords={['사랑']}
+                      autoEscape
+                      textToHighlight={item.title}
+                    />
+                  </h2>
+                </div>
+              )
+            )
+          )}
+          {isLoading ? <p>로딩 중...</p> : ''}
+        </div>
+      </BookListBox>
     </div>
   );
 };
