@@ -15,6 +15,23 @@ const BookListBox = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+  & div:not(:last-child) {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+`;
+
+const ItemBox = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
+const ThumbnailImg = styled.img`
+  width: 50px;
+  height: auto;
 `;
 
 type BookListType = {
@@ -81,7 +98,6 @@ const infiniteScroll = () => {
       }
     };
   }, [lastElement]);
-
   return (
     <div>
       <TitleH1>❤️사랑과 관련된 모든 책 모음❤️</TitleH1>
@@ -90,7 +106,8 @@ const infiniteScroll = () => {
           {React.Children.toArray(
             bookList.map((item, idx) =>
               idx === bookList.length - 1 && !isLoading && pageNum <= totalPageNum ? (
-                <div ref={setLastElement}>
+                <ItemBox ref={setLastElement}>
+                  <ThumbnailImg src={item.image} alt={item.title} loading="lazy" />
                   <h2>
                     <Highlighter
                       highlightClassName="keyword-highlight"
@@ -99,9 +116,10 @@ const infiniteScroll = () => {
                       textToHighlight={item.title}
                     />
                   </h2>
-                </div>
+                </ItemBox>
               ) : (
-                <div>
+                <ItemBox>
+                  <ThumbnailImg src={item.image} alt={item.title} loading="lazy" />
                   <h2>
                     <Highlighter
                       highlightClassName="keyword-highlight"
@@ -110,7 +128,7 @@ const infiniteScroll = () => {
                       textToHighlight={item.title}
                     />
                   </h2>
-                </div>
+                </ItemBox>
               )
             )
           )}
