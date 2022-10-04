@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import SearchInput from '../components/book/SearchInput';
@@ -26,7 +26,22 @@ const SearchBox = styled.div`
 const BookSearch = () => {
   const [value, setValue] = useState<string>('');
   const [timer, setTimer] = useState<any>(0);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [bookList, setBookList] = useState<[]>([]);
+  const optionRef = useRef(null);
+
+  const handleClickOutside = ({ target }) => {
+    if (!optionRef.current.contains(target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const handleChangeValue = (e) => {
     const currentValue = e.target.value;
@@ -56,12 +71,16 @@ const BookSearch = () => {
     setTimer(newTimer);
   };
 
+  const handleOpenList = () => {
+    setIsOpen(true);
+  };
+
   return (
     <Container>
       <TitleH1>📚Book Search</TitleH1>
-      <SearchBox>
-        <SearchInput onChange={handleChangeValue} value={value} />
-        <SearchAutoCompleteList data={bookList} />
+      <SearchBox ref={optionRef}>
+        <SearchInput onChange={handleChangeValue} value={value} onOpenList={handleOpenList} />
+        {isOpen && <SearchAutoCompleteList data={bookList} />}
       </SearchBox>
     </Container>
   );

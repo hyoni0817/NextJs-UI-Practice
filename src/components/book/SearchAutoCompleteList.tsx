@@ -5,7 +5,6 @@ const ResultListBox = styled.div`
   width: 100%;
   position: absolute;
   top: 40px;
-  display: none;
 `;
 
 const ResultList = styled.ul`
