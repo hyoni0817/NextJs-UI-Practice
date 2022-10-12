@@ -38,10 +38,18 @@ const KeywordInput = () => {
     setValue(e.target.value);
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      setKeywordList([...keywordList, e.target.value]);
+  const handleKeyPress = ({ nativeEvent }) => {
+    if (nativeEvent.key === 'Enter') {
+      setKeywordList([...keywordList, nativeEvent.target.value]);
       setValue('');
+    }
+  };
+
+  const handleKeyDown = ({ nativeEvent }) => {
+    // 아무런 값 입력이 안 된 상태에서 백스페이스 클릭시 키워드 제거
+    if (nativeEvent.keyCode === 8 && !value) {
+      const removeKeyword = keywordList.slice(0, keywordList.length - 1);
+      setKeywordList(removeKeyword);
     }
   };
 
@@ -51,7 +59,13 @@ const KeywordInput = () => {
         {keywordList.map((item) => (
           <KeywordSpan>{item}</KeywordSpan>
         ))}
-        <Input type="text" value={value} onChange={handleChangeValue} onKeyPress={handleKeyPress} />
+        <Input
+          type="text"
+          value={value}
+          onChange={handleChangeValue}
+          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyDown}
+        />
       </KeywordListBox>
     </KeywordInputBox>
   );
