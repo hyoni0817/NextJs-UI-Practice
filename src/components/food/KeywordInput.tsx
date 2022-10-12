@@ -9,7 +9,19 @@ const KeywordInputBox = styled.div`
 
 const KeywordListBox = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+`;
+
+const KeywordSpan = styled.span`
+  padding: 2px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #f8a8a8;
+  color: #ffffff;
 `;
 
 const KeywordInput = () => {
@@ -31,7 +43,7 @@ const KeywordInput = () => {
     <KeywordInputBox>
       <KeywordListBox>
         {keywordList.map((item) => (
-          <span>{item}</span>
+          <KeywordSpan>{item}</KeywordSpan>
         ))}
         <input type="text" value={value} onChange={handleChangeValue} onKeyPress={handleKeyPress} />
       </KeywordListBox>
