@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const KeywordInputBox = styled.div`
+  padding: 15px 10px;
   width: 100%;
   height: 300px;
   box-shadow: inset 0 0 0 1px #ccc;
@@ -22,6 +23,11 @@ const KeywordSpan = styled.span`
   border-radius: 8px;
   background: #f8a8a8;
   color: #ffffff;
+`;
+
+const Input = styled.input`
+  border: none;
+  outline: none;
 `;
 
 const KeywordInput = () => {
@@ -45,7 +51,7 @@ const KeywordInput = () => {
         {keywordList.map((item) => (
           <KeywordSpan>{item}</KeywordSpan>
         ))}
-        <input type="text" value={value} onChange={handleChangeValue} onKeyPress={handleKeyPress} />
+        <Input type="text" value={value} onChange={handleChangeValue} onKeyPress={handleKeyPress} />
       </KeywordListBox>
     </KeywordInputBox>
   );
