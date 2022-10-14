@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { BsX } from 'react-icons/bs';
 
@@ -7,6 +7,10 @@ const KeywordInputBox = styled.div`
   width: 100%;
   height: 300px;
   box-shadow: inset 0 0 0 1px #ccc;
+
+  &:hover {
+    cursor: text;
+  }
 `;
 
 const KeywordListBox = styled.div`
@@ -42,6 +46,7 @@ const Input = styled.input`
 const KeywordInput = () => {
   const [value, setValue] = useState<string>('');
   const [keywordList, setKeywordList] = useState<string[]>([]);
+  const keywordInput = useRef(null);
 
   const handleChangeValue = (e) => {
     setValue(e.target.value);
@@ -67,8 +72,12 @@ const KeywordInput = () => {
     setKeywordList(removeKeyword);
   };
 
+  const handleClickKeywordInputBox = () => {
+    keywordInput.current.focus();
+  };
+
   return (
-    <KeywordInputBox>
+    <KeywordInputBox onClick={handleClickKeywordInputBox}>
       <KeywordListBox>
         {keywordList.map((item) => (
           <ItemBox>
@@ -84,6 +93,7 @@ const KeywordInput = () => {
           onChange={handleChangeValue}
           onKeyPress={handleKeyPress}
           onKeyDown={handleKeyDown}
+          ref={keywordInput}
         />
       </KeywordListBox>
     </KeywordInputBox>
