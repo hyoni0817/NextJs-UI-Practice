@@ -62,13 +62,18 @@ const KeywordInput = () => {
     }
   };
 
+  const handleClickRemove = (keyword: string) => {
+    const removeKeyword = keywordList.filter((item) => item !== keyword);
+    setKeywordList(removeKeyword);
+  };
+
   return (
     <KeywordInputBox>
       <KeywordListBox>
         {keywordList.map((item) => (
           <ItemBox>
             <span>{item}</span>
-            <RemoveButton type="button">
+            <RemoveButton type="button" onClick={() => handleClickRemove(item)}>
               <BsX />
             </RemoveButton>
           </ItemBox>
