@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { BsX } from 'react-icons/bs';
 
 const KeywordInputBox = styled.div`
   padding: 15px 10px;
@@ -14,7 +15,7 @@ const KeywordListBox = styled.div`
   gap: 10px;
 `;
 
-const KeywordSpan = styled.span`
+const ItemBox = styled.div`
   padding: 2px 5px;
   display: flex;
   justify-content: center;
@@ -23,6 +24,14 @@ const KeywordSpan = styled.span`
   border-radius: 8px;
   background: #f8a8a8;
   color: #ffffff;
+`;
+
+const RemoveButton = styled.button`
+  padding: 0;
+  line-height: 1;
+  border: none;
+  background: none;
+  cursor: pointer;
 `;
 
 const Input = styled.input`
@@ -57,7 +66,12 @@ const KeywordInput = () => {
     <KeywordInputBox>
       <KeywordListBox>
         {keywordList.map((item) => (
-          <KeywordSpan>{item}</KeywordSpan>
+          <ItemBox>
+            <span>{item}</span>
+            <RemoveButton type="button">
+              <BsX />
+            </RemoveButton>
+          </ItemBox>
         ))}
         <Input
           type="text"
