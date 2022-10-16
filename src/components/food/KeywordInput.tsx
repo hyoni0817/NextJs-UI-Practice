@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { BsX } from 'react-icons/bs';
 
@@ -43,10 +43,19 @@ const Input = styled.input`
   outline: none;
 `;
 
-const KeywordInput = () => {
+type KeywordInputProps = {
+  onSelect: (value: string[]) => void;
+};
+
+const KeywordInput: FC<KeywordInputProps> = (props) => {
+  const { onSelect } = props;
   const [value, setValue] = useState<string>('');
   const [keywordList, setKeywordList] = useState<string[]>([]);
   const keywordInput = useRef(null);
+
+  useEffect(() => {
+    onSelect(keywordList);
+  }, [keywordList]);
 
   const handleChangeValue = (e) => {
     setValue(e.target.value);
