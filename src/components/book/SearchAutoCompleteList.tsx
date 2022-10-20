@@ -18,6 +18,7 @@ const ResultList = styled.ul`
 
 const Item = styled.li`
   padding: 8px 16px;
+  ${(props) => props.isFocus && `background: #f6f6f6;`}
 
   &:hover {
     background: #f6f6f6;
@@ -55,17 +56,19 @@ type SearchAutoCompleteLisProps = {
     isbn: string;
     description: string;
   }[];
+  ref: React.MutableRefObject<any>;
+  currentFocusIndex: number;
 };
 
 const SearchAutoCompleteList: FC<SearchAutoCompleteLisProps> = (props) => {
-  const { data } = props;
+  const { data, ref, currentFocusIndex } = props;
 
   return (
-    <ResultListBox className="book-result">
+    <ResultListBox className="book-result" ref={ref}>
       <ResultList isData={data?.length}>
         {data?.length ? (
-          data.map((item) => (
-            <Item key={item.isbn}>
+          data.map((item, idx) => (
+            <Item key={item.isbn} isFocus={currentFocusIndex === idx || false}>
               <a href={item.link}>
                 <FlexBox>
                   <BookImg src={item.image} alt={item.title} />

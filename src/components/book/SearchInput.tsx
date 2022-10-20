@@ -11,17 +11,19 @@ const Input = styled.input`
 type SearchInputProps = {
   onChange: (e: any) => void;
   onOpenList: () => void;
+  onKeyDown: (e: any) => void;
   value: string;
 };
 
 const SearchInput: FC<SearchInputProps> = (props) => {
-  const { onChange, value, onOpenList } = props;
+  const { onChange, value, onOpenList, onKeyDown } = props;
 
   return (
     <Input
       type="text"
       onChange={onChange}
       onClick={onOpenList}
+      onKeyDown={onKeyDown}
       value={value}
       placeholder="검색할 책  제목을 입력해주세요. "
     />

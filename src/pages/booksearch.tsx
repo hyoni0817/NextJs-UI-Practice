@@ -28,7 +28,9 @@ const BookSearch = () => {
   const [timer, setTimer] = useState<any>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [bookList, setBookList] = useState<[]>([]);
+  const [itemIdx, setItemIdx] = useState<number>(-1);
   const optionRef = useRef(null);
+  const autoRef = useRef(null);
 
   const handleClickOutside = ({ target }) => {
     if (!optionRef.current.contains(target)) {
@@ -75,12 +77,40 @@ const BookSearch = () => {
     setIsOpen(true);
   };
 
+  const handleKeyArrow = (e: React.KeyboardEvent) => {
+    if (bookList.length > 0) {
+      switch (e.key) {
+        case 'ArrowDown':
+          setItemIdx(itemIdx + 1);
+          if (autoRef.current?.childElementCount === itemIdx + 1) setItemIdx(0);
+          break;
+        case 'ArrowUp':
+          setItemIdx(itemIdx - 1);
+          if (itemIdx <= 0) {
+            setItemIdx(-1);
+          }
+          break;
+        case 'Escape':
+          setIsOpen(true);
+          setItemIdx(-1);
+          break;
+        default:
+          break;
+      }
+    }
+  };
+
   return (
     <Container>
       <TitleH1>📚Book Search</TitleH1>
       <SearchBox ref={optionRef}>
-        <SearchInput onChange={handleChangeValue} value={value} onOpenList={handleOpenList} />
-        {isOpen && <SearchAutoCompleteList data={bookList} />}
+        <SearchInput
+          onChange={handleChangeValue}
+          value={value}
+          onOpenList={handleOpenList}
+          onKeyDown={handleKeyArrow}
+        />
+        {isOpen && <SearchAutoCompleteList data={bookList} ref={autoRef} currentFocusIndex={itemIdx} />}
       </SearchBox>
     </Container>
   );
