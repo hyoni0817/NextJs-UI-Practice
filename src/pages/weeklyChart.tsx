@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
+import { Slider, Switch } from 'antd';
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const WeeklyChart = () => {
+  const [year, setYear] = useState(false);
+
   const data = {
     options: {
       chart: {
@@ -28,7 +31,16 @@ const WeeklyChart = () => {
     ],
   };
 
-  return <ReactApexChart type="area" options={data.options} series={data.series} width={500} height={320} />;
+  const handleChangeSlider = (value) => {
+    setYear(value);
+  };
+
+  return (
+    <>
+      <ReactApexChart type="area" options={data.options} series={data.series} width={500} height={320} />;
+      <Slider range step={1} min={1991} max={1999} onChange={handleChangeSlider} />
+    </>
+  );
 };
 
 export default WeeklyChart;
