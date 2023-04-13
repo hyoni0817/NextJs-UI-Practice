@@ -20,7 +20,7 @@ const WeeklyChart = () => {
         enabled: false,
       },
       xaxis: {
-        categories,
+        categories: categories.slice(firstYearIndex, secondYearIndex),
       },
     },
     series: [
@@ -43,7 +43,7 @@ const WeeklyChart = () => {
   const handleChangeSlider = (value) => {
     setYear(value);
     setFirstYearIndex(categories.indexOf(value[0]));
-    setSecondYearIndex(categories.indexOf(value[1]));
+    setSecondYearIndex(categories.indexOf(value[1]) + 1);
   };
 
   return (
