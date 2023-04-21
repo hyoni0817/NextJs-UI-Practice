@@ -22,6 +22,49 @@ const WeeklyChart = () => {
       xaxis: {
         categories: categories.slice(firstYearIndex, secondYearIndex),
       },
+      yaxis: [
+        {
+          axisTicks: {
+            show: true,
+          },
+          axisBorder: {
+            show: true,
+            color: '#FF1654',
+          },
+          labels: {
+            style: {
+              colors: '#FF1654',
+            },
+          },
+          title: {
+            text: 'Series A',
+            style: {
+              color: '#FF1654',
+            },
+          },
+        },
+        {
+          opposite: true,
+          axisTicks: {
+            show: true,
+          },
+          axisBorder: {
+            show: true,
+            color: '#247BA0',
+          },
+          labels: {
+            style: {
+              colors: '#247BA0',
+            },
+          },
+          title: {
+            text: 'Series B',
+            style: {
+              color: '#247BA0',
+            },
+          },
+        },
+      ],
     },
     series: [
       {
