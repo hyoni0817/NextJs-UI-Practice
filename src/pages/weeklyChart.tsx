@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 import { Slider, Switch } from 'antd';
 import type { SliderMarks } from 'antd/es/slider';
+
+const FlexBox = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 50px;
+`;
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -91,7 +99,9 @@ const WeeklyChart = () => {
 
   return (
     <>
-      <ReactApexChart type="area" options={data.options} series={data.series} width={500} height={320} />;
+      <FlexBox>
+        <ReactApexChart type="area" options={data.options} series={data.series} width={500} height={320} />;
+      </FlexBox>
       <Slider marks={marks} range step={1} min={1991} max={1999} onChange={handleChangeSlider} />
     </>
   );
