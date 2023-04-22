@@ -58,6 +58,36 @@ const WeeklyChart = () => {
           },
         },
         {
+          axisTicks: {
+            show: true,
+          },
+          axisBorder: {
+            show: false,
+            color: '#000000',
+            offsetX: 30, // y축 위치 이동
+            offsetY: 0, // y축 위치 이동
+          },
+          labels: {
+            style: {
+              color: '#000000',
+            },
+            offsetX: 30, // y축 눈금 위치 이동
+            offsetY: 0, // y축 눈금 위치 이동
+          },
+          title: {
+            text: 'Series C',
+            align: 'left',
+            margin: 10,
+            offsetX: 25,
+            offsetY: -130,
+            rotate: 0,
+            floating: true,
+            style: {
+              color: '#000000',
+            },
+          },
+        },
+        {
           opposite: true,
           axisTicks: {
             show: true,
