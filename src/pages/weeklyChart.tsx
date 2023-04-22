@@ -46,6 +46,12 @@ const WeeklyChart = () => {
           },
           title: {
             text: 'Series A',
+            align: 'left',
+            margin: 10,
+            offsetX: 25,
+            offsetY: -130,
+            rotate: 0,
+            floating: true,
             style: {
               color: '#FF1654',
             },
