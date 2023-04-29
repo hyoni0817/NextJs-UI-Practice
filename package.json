@@ -16,6 +16,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@sentry/cli": "^2.17.5",
+    "@sentry/nextjs": "^7.50.0",
     "@types/react-helmet": "^6.1.5",
     "antd": "^4.23.2",
     "axios": "^0.27.2",
