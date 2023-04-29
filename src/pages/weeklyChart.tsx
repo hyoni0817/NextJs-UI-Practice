@@ -27,6 +27,11 @@ const WeeklyChart = () => {
       dataLabels: {
         enabled: false,
       },
+      title: {
+        text: 'Series Sources',
+        align: 'center' as const,
+        offsetX: 40,
+      },
       xaxis: {
         categories: categories.slice(firstYearIndex, secondYearIndex),
       },
