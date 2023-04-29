@@ -32,6 +32,18 @@ const WeeklyChart = () => {
         align: 'center' as const,
         offsetX: 40,
       },
+      subtitle: {
+        text: '- 네이버 웹툰',
+        align: 'center',
+        margin: 10,
+        offsetX: 20,
+        offsetY: 15,
+        floating: false,
+        style: {
+          fontSize: '12px',
+          color: '#9699a2',
+        },
+      },
       xaxis: {
         categories: categories.slice(firstYearIndex, secondYearIndex),
       },
