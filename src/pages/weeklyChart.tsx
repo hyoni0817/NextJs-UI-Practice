@@ -34,7 +34,7 @@ const WeeklyChart = () => {
       },
       subtitle: {
         text: '- 네이버 웹툰',
-        align: 'center',
+        align: 'center' as const,
         margin: 10,
         offsetX: 20,
         offsetY: 15,
@@ -63,7 +63,7 @@ const WeeklyChart = () => {
           },
           title: {
             text: 'Series A',
-            align: 'left',
+            align: 'left' as const,
             margin: 10,
             offsetX: 25,
             offsetY: -130,
@@ -93,7 +93,7 @@ const WeeklyChart = () => {
           },
           title: {
             text: 'Series C',
-            align: 'left',
+            align: 'left' as const,
             margin: 10,
             offsetX: 25,
             offsetY: -130,
@@ -149,7 +149,6 @@ const WeeklyChart = () => {
     setFirstYearIndex(categories.indexOf(value[0]));
     setSecondYearIndex(categories.indexOf(value[1]) + 1);
   };
-
   return (
     <>
       <FlexBox>
