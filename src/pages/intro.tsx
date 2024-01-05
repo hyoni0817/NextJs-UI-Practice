@@ -14,8 +14,7 @@ const AnimatedTitleBox = styled.div`
 `;
 
 const TrackBox = styled.div`
-  position: absolute;
-  white-space: nowrap;
+s  white-space: nowrap;
   will-change: transform;
   animation: marquee 60s linear infinite;
 
@@ -37,8 +36,8 @@ const TrackBox = styled.div`
 
 const ImgWrapper = styled.div`
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 150px;
+  height: 150px;
   border-radius: 10px;
   overflow: hidden;
   line-height: 0;
@@ -73,7 +72,7 @@ const Intro = () => {
               <ImgWrapper>
                 <Img src={item} />
               </ImgWrapper>
-              <ImgWrapper>
+              {/* <ImgWrapper>
                 <Img src={item} />
               </ImgWrapper>
               <ImgWrapper>
@@ -120,7 +119,7 @@ const Intro = () => {
               </ImgWrapper>
               <ImgWrapper>
                 <Img src={item} />
-              </ImgWrapper>
+              </ImgWrapper> */}
             </>
           ))}
         </div>
