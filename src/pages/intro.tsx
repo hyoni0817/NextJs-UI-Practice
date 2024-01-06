@@ -1,131 +1,60 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-const AnimatedTitleBox = styled.div`
-  font-size: 60px;
-  font-weight: 300;
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  padding: 100px 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
-`;
+const images = [
+  'https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/18/sportsdonga/20210518161658583frfh.jpg',
+  'https://image.news1.kr/system/photos/2021/5/11/4762836/article.jpg/dims/quality/80/optimize',
+  'https://cdn.straightnews.co.kr/news/photo/202104/104438_78197_4833.jpg',
+  'https://image.xportsnews.com/contents/images/upload/article/2021/0430/mb_1619745619292694.jpg',
+];
 
-const TrackBox = styled.div`
-s  white-space: nowrap;
-  will-change: transform;
-  animation: marquee 60s linear infinite;
+// 이미지가 가로로 움직이는 것이 무한 캐러셀처럼 동작하게 하기 위해서 아래와 같은 배열 리스트를 생성
+const imageList = [...images, ...images];
 
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-  @media (hover: hover) and (min-width: 700px) {
-    & .content {
-      -webkit-transform: translateY(calc(100% - 8rem));
-      transform: translateY(calc(100% - 8rem));
-    }
-  }
-`;
-
-const ImgWrapper = styled.div`
-  display: inline-block;
-  width: 150px;
-  height: 150px;
-  border-radius: 10px;
+const Section = styled.section`
+  margin: 0 auto;
+  width: 800px;
   overflow: hidden;
-  line-height: 0;
-  flex-shrink: 0;
 `;
 
-const Img = styled.img`
-  object-fit: cover;
+const moveRight = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-${(100 / (images.length / 2)) * imageList.length}%);
+  }
+`;
+
+const CarouselContainer = styled.div`
+  display: flex;
+  overflow: hidden;
   width: 100%;
-  height: 100%;
-  border-radius: 10px;
 `;
 
-const Intro = () => {
-  const imgList = [
-    'https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/18/sportsdonga/20210518161658583frfh.jpg',
-    'https://image.news1.kr/system/photos/2021/5/11/4762836/article.jpg/dims/quality/80/optimize',
-    'https://cdn.straightnews.co.kr/news/photo/202104/104438_78197_4833.jpg',
-  ];
+const ImageWrapper = styled.div`
+  display: flex;
+  width: fit-content;
+  animation: ${moveRight} 10s linear infinite;
+`;
+
+const Image = styled.img`
+  width: 200px;
+  height: auto;
+`;
+
+const Intro2 = () => {
   return (
-    <AnimatedTitleBox>
-      <TrackBox>
-        <div className="content">
-          {imgList.map((item) => (
-            <>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              {/* <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper>
-              <ImgWrapper>
-                <Img src={item} />
-              </ImgWrapper> */}
-            </>
-          ))}
-        </div>
-      </TrackBox>
-    </AnimatedTitleBox>
+    <Section>
+      <CarouselContainer>
+        {images.map((image, index) => (
+          <ImageWrapper key={index}>
+            <Image src={image} alt={`Image ${index + 1}`} />
+          </ImageWrapper>
+        ))}
+      </CarouselContainer>
+    </Section>
   );
 };
 
-export default Intro;
+export default Intro2;
