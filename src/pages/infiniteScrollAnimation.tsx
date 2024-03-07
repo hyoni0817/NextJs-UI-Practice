@@ -81,14 +81,6 @@ const InfiniteScrollAnimation = () => {
           <li>animation</li>
           <li>UI/UX</li>
           <li>front-end</li>
-          <Test>HTML</Test>
-          <li>CSS</li>
-          <li>JS</li>
-          <li>SSG</li>
-          <li>webdev</li>
-          <li>animation</li>
-          <li>UI/UX</li>
-          <li>front-end</li>
         </TagList>
       </Scroller>
     </MainBox>
