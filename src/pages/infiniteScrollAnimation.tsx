@@ -33,6 +33,9 @@ const Scroller = styled.div`
 
   @keyframes scroll {
     to {
+      // 왼쪽에서 오른쪽 방향으로 움직이게 할 때
+      // transform: translate(calc(-50% - 0.5rem));
+      // 오른쪽에서 왼쪽 방향으로 움직이게 할 때
       transform: translate(calc(-50% - 0.5rem));
     }
   }
